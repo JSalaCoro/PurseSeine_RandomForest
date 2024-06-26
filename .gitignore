@@ -1,4 +1,4 @@
 DB_config.py
 getDBdata.ipynb
-/databases
-/__pycache__
+databases/
+__pycache__/
