@@ -1,16 +1,12 @@
-# modelCheckFunctions.py>
-def try_to_import_function():
-    a = 2+2
-    print(a)
-    return a
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sn
+from sklearn.metrics import confusion_matrix, accuracy_score, precision_recall_fscore_support, roc_curve, RocCurveDisplay
+
 
 
 def model_scoring_and_confusion_matrix_multiclassModel(y_test_dataset, y_pred_dataset):
-    import pandas as pd
-    import matplotlib.pyplot as plt
-    import seaborn as sn
-    from sklearn.metrics import confusion_matrix, accuracy_score, precision_recall_fscore_support, roc_curve, RocCurveDisplay
-
+    
     y_test_dataset.value_counts() #show number of truth values by category
     ##accuracy and Fscore
     print('Accuracy of the final model is: ' + str(accuracy_score(y_test_dataset, y_pred_dataset)))
