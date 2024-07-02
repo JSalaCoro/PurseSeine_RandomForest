@@ -35,8 +35,4 @@ for (param in params){
 ggplot(d)+
   geom_line(aes(x=mean_test_recall_score, y=mean_test_precision_score))
 
-##PROBABILITY THRESHOLD
-predProva = read.csv('predict_proba.csv')
-predProva$X0.1 = as.factor(predProva$X0.1)
-ggplot(predProva)+
-  geom_boxplot(aes(x=X0.1, y=X2))
+
