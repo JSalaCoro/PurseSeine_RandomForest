@@ -1,7 +1,7 @@
+from sklearn.metrics import confusion_matrix, accuracy_score, precision_recall_fscore_support
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sn
-from sklearn.metrics import confusion_matrix, accuracy_score, precision_recall_fscore_support, roc_curve, RocCurveDisplay
 
 def model_scoring_and_confusion_matrix_multiclassModel(y_test_dataset, y_pred_dataset):
     
@@ -42,6 +42,3 @@ def model_scoring_and_confusion_matrix_binaryModel(y_test_dataset, y_pred_datase
     truth = y_test_dataset.reset_index(drop=True)
     predicted = pd.Series(y_pred_dataset).reset_index(drop=True)
     frame = {'truth':truth, 'predicted':predicted}
-
-def holi_hello():
-    print('holi_hello')
