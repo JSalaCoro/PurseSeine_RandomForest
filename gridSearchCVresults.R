@@ -7,7 +7,10 @@ library(forcats)
 library(factoextra)
 rm(list=ls())
 
-d = read.csv('results/multiclassModel/gridSearchCV_results.csv')
+modelRunning = 'binaryModel'
+modelRunning = 'multiClassModel'
+
+d = read.csv(paste0('results/', modelRunning, '/gridSearchCV_results.csv'))
 
 params=list('param_bootstrap', 'param_max_depth', 'param_max_features', 'param_max_leaf_nodes', 'param_max_samples',
             'param_min_impurity_decrease', 'param_min_samples_leaf', 'param_min_samples_split', 'param_n_estimators')
@@ -28,7 +31,7 @@ for (param in params){
       geom_boxplot(aes(y=mean_test_f1_score, x=as.factor(d[[param]])))
     ,
     nrow=1)
-  ggsave(paste0('results/multiclassModel/gridSearchCVresultsPlots/', param,'.png'), units='cm', width = 20, height = 10)
+  ggsave(paste0('results/', modelRunning, '/gridSearchCVresultsPlots/', param,'.png'), units='cm', width = 20, height = 10)
   
 }
 
