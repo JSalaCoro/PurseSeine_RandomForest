@@ -82,3 +82,18 @@ ggplot(dd) +
   ylab('Daily vessel operation time (h/day)')+
   theme(axis.text.x = element_text(size=13))
 ggsave(paste0('results/', model_tested, '/fishingEffortCheck/Effort_by_trip_SpeedFilter.jpeg'), units='px', height = 1000, width = 1200)
+
+
+#3. Some extra plots
+#speed histograms
+ggplot(d)+
+  geom_histogram(aes(x=Speed, fill=PredictedOp), binwidth = 0.2)
+ggplot(d)+
+  geom_histogram(aes(x=Speed, fill=ObservedOp), binwidth = 0.2)
+
+#stats
+summary(aov((n*meanFtimePoint)/60 ~ Operation * ObsPred, data=dd))
+
+#speedFilter
+ggplot(d)+
+  geom_histogram(aes(x=Speed, fill=Fishing), binwidth = 0.2)
