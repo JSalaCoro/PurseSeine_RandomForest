@@ -7,7 +7,7 @@ Four main scripts are defined for data analysis:
 
 ## 0_dataPreprocessing
 Gets observed-classified data from 'data/vmsOp2.csv' and preprocesses it to train ML model. Some of the predicitve variables such as bufferGeom or speed and cog diffs will be calculated. 
-The result will be stored in 'data/vmsOp2.csv'
+The result will be stored in 'data/vmsOp.csv'
 
 ## 1_randomForest
 Machine learning model training. Both binary and multiclass model will be trained with gridsearchCV from sckit-lean package. 
