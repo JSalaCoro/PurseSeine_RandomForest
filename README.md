@@ -1,9 +1,9 @@
 # PurseSeine_RandomForest
-Machine learning models training for purse seine fleet fishing operation identification. In this readme file you'll find some information to be able to reuse the code with your own data or download the trained models to make predictions. 
+Machine learning models training for purse seine fleet fishing operation identification. In this readme file you'll find some information to be able to reuse the code with your own data or download the trained models to make predictions. All original data is also available so you can run the scripts on the same study datasets.
 
 ![alt text](data/pic2.png)
 
-Three main scripts are defined for data analysis:
+Four main scripts are defined for data analysis:
 
 ## 0_dataPreprocessing
 Gets observed-classified data from 'data/vmsOp2.csv' and preprocesses it to train ML model. Some of the predicitve variables such as bufferGeom or speed and cog diffs will be calculated. 
