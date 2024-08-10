@@ -1,0 +1,24 @@
+#Hyperparameter tunning for binary model (1066min):
+192000 fits failed out of a total of 384000.
+The score on these train-test partitions for these parameters will be set to nan.
+If these failures are not expected, you can try to debug them by setting error_score='raise'.
+
+Below are more details about the failures:
+--------------------------------------------------------------------------------
+192000 fits failed with the following error:
+Traceback (most recent call last):
+  File "c:\Users\jsala\anaconda3\envs\jupyter-env\Lib\site-packages\sklearn\model_selection\_validation.py", line 686, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "c:\Users\jsala\anaconda3\envs\jupyter-env\Lib\site-packages\sklearn\ensemble\_forest.py", line 397, in fit
+    raise ValueError(
+ValueError: `max_sample` cannot be set if `bootstrap=False`. Either switch to `bootstrap=True` or set `max_sample=None`.
+
+Model accuracy in the training dataset is: 0.9257575757575758
+Model accuracy in the test dataset: 0.8318181818181818
+
+Accuracy of the final model is: 0.8318181818181818
+                   AN           C
+precision    0.826087    0.838095
+recall       0.848214    0.814815
+F-score      0.837004    0.826291
+totals     112.000000  108.000000
