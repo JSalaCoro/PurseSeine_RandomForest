@@ -1,0 +1,27 @@
+#hyperparameter tunnind (1098min):
+192000 fits failed out of a total of 384000.
+The score on these train-test partitions for these parameters will be set to nan.
+If these failures are not expected, you can try to debug them by setting error_score='raise'.
+
+Below are more details about the failures:
+--------------------------------------------------------------------------------
+192000 fits failed with the following error:
+Traceback (most recent call last):
+  File "c:\Users\jsala\anaconda3\envs\jupyter-env\Lib\site-packages\sklearn\model_selection\_validation.py", line 686, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "c:\Users\jsala\anaconda3\envs\jupyter-env\Lib\site-packages\sklearn\ensemble\_forest.py", line 397, in fit
+    raise ValueError(
+ValueError: `max_sample` cannot be set if `bootstrap=False`. Either switch to `bootstrap=True` or set `max_sample=None`.
+
+Model best parameters:
+{'bootstrap': True, 'max_depth': 10, 'max_features': 'log2', 'max_leaf_nodes': 100, 'max_samples': 1.0, 'min_impurity_decrease': 0.0, 'min_samples_leaf': 1, 'min_samples_split': 5, 'n_estimators': 1050}
+
+ Model accuracy in the training dataset is: 0.9252525252525252
+Model accuracy in the test dataset: 0.7242424242424242
+
+Accuracy of the final model is: 0.7242424242424242
+                    A           C           N
+precision    0.670000    0.696721    0.805556
+recall       0.609091    0.833333    0.737288
+F-score      0.638095    0.758929    0.769912
+totals     110.000000  102.000000  118.000000

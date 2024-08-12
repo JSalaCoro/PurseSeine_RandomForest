@@ -1,0 +1,23 @@
+bootstrap = [True]
+max_depth = [6]
+max_features = ['sqrt']
+max_leaf_nodes = [100,1000, 1500]
+max_samples = [0.5]
+min_impurity_decrease = [0]
+min_samples_leaf = [5]
+min_samples_split = [2,3,4,5] 
+n_estimators = [int(x) for x in np.linspace(start=100, stop=1000, num = 3)]
+
+Best params:
+{'bootstrap': True, 'max_depth': 6, 'max_features': 'sqrt', 'max_leaf_nodes': 1000, 'max_samples': 0.5, 'min_impurity_decrease': 0, 'min_samples_leaf': 5, 'min_samples_split': 5, 'n_estimators': 1000}
+
+
+ Model accuracy in the training dataset is: 0.7525252525252525
+Model accuracy in the test dataset: 0.7363636363636363
+
+Accuracy of the final model is: 0.7363636363636363
+                   A           C           N
+precision   0.610619    0.790909    0.813084
+recall      0.696970    0.743590    0.763158
+F-score     0.650943    0.766520    0.787330
+totals     99.000000  117.000000  114.000000
