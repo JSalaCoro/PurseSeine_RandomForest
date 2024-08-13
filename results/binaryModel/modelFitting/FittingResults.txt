@@ -1,0 +1,12 @@
+Model best parameters:
+{'bootstrap': True, 'max_depth': 6, 'max_features': 'sqrt', 'max_leaf_nodes': 1000, 'max_samples': 1.0, 'min_impurity_decrease': 0, 'min_samples_leaf': 1, 'min_samples_split': 3, 'n_estimators': 100}
+
+ Model accuracy in the training dataset is: 0.9
+Model accuracy in the test dataset: 0.8318181818181818
+
+Accuracy of the final model is: 0.8136363636363636
+                   AN           C
+precision    0.771654    0.870968
+recall       0.890909    0.736364
+F-score      0.827004    0.798030
+totals     110.000000  110.000000
