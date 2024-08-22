@@ -7,6 +7,8 @@ library(caret)
 library(ranger)
 library(ggpubr)
 library(forcats)
+library(reshape2)
+library(data.table)
 rm(list=ls())
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 model_tested='multiclassModel'
@@ -29,8 +31,8 @@ Vms5km$Grid = '5km2'
 df = rbind(Vms1km, Vms2km, Vms3km, Vms4km, Vms5km)
 max_y=max(df$VMSOpTime.min._PredictedOp)
 df$Grid = as.factor(df$Grid)
-if (model_tested == 'multiclassModel' ){df$Operation = factor(df$Operation, levels=c('C','A','N'))
-} else if (model_tested == 'binaryModel' | model_tested == 'speedFilter'){df$Operation = factor(df$Operation, levels=c('C','AN'))}
+if (model_tested == 'multiclassModel' ){df$Operation = factor(df$Operation, levels=c('F','T','C'))
+} else if (model_tested == 'binaryModel' | model_tested == 'speedFilter'){df$Operation = factor(df$Operation, levels=c('F','TC'))}
 
 #VMS observed Vs VMS predicted
 ggplot(df, aes(x=VMSOpTime.min._ObservedOp, y=VMSOpTime.min._PredictedOp, color=Operation))+
@@ -71,8 +73,8 @@ dpredEx[is.na(dpredEx)] = 0
 
 
 dd = rbind(dobsEx, dpredEx)
-if (model_tested == 'Multiclass model' ){dd$Operation = factor(dd$Operation, levels=c('C','A','N'))
-} else if (model_tested == 'Binary model' | model_tested == 'Speed filter'){dd$Operation = factor(dd$Operation, levels=c('C','AN'))}
+if (model_tested == 'multiclassModel' ){dd$Operation = factor(dd$Operation, levels=c('F','T','C'))
+} else if (model_tested == 'binaryModel' | model_tested == 'speedFilter'){dd$Operation = factor(dd$Operation, levels=c('F','TC'))}
 
 ggplot(dd) + 
   geom_boxplot(aes(x=Operation, y=(n*meanFtimePoint)/60, fill=ObsPred))+
@@ -81,19 +83,9 @@ ggplot(dd) +
   ggtitle(model_tested)+
   ylab('Daily vessel operation time (h/day)')+
   theme(axis.text.x = element_text(size=13))
-ggsave(paste0('results/', model_tested, '/fishingEffortCheck/Effort_by_trip_SpeedFilter.jpeg'), units='px', height = 1000, width = 1200)
-
-
-#3. Some extra plots
-#speed histograms
-ggplot(d)+
-  geom_histogram(aes(x=Speed, fill=PredictedOp), binwidth = 0.2)
-ggplot(d)+
-  geom_histogram(aes(x=Speed, fill=ObservedOp), binwidth = 0.2)
+ggsave(paste0('results/', model_tested, '/fishingEffortCheck/Effort_by_trip.jpeg'), units='px', height = 1000, width = 1200)
 
 #stats
 summary(aov((n*meanFtimePoint)/60 ~ Operation * ObsPred, data=dd))
 
-#speedFilter
-ggplot(d)+
-  geom_histogram(aes(x=Speed, fill=Fishing), binwidth = 0.2)
+
