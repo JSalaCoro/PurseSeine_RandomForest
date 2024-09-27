@@ -1,5 +1,6 @@
 library(ggplot2)
-library(RPostgres)
+4library(RPostgres)
+library(plyr)
 library(tidyr)
 library(dplyr)
 library(zoo)
@@ -31,23 +32,41 @@ Vms5km$Grid = '5km2'
 df = rbind(Vms1km, Vms2km, Vms3km, Vms4km, Vms5km)
 max_y=max(df$VMSOpTime.min._PredictedOp)
 df$Grid = as.factor(df$Grid)
-if (model_tested == 'multiclassModel' ){df$Operation = factor(df$Operation, levels=c('F','T','C'))
-} else if (model_tested == 'binaryModel' | model_tested == 'speedFilter'){df$Operation = factor(df$Operation, levels=c('F','TC'))}
+if (model_tested == 'multiclassModel' ){
+  df$Operation = factor(df$Operation, levels=c('F','T','C'))
+  df$Operation = revalue(df$Operation, c('F'='Fishing', 'T'='Tracking', 'C'='Cruising'))
+  colourPaletteC = c('Cruising'='#2283C8', 'Tracking'='#ff7f0e', 'Fishing'='#2ca02c')
+  figureHeight = 2000
+  title='Multiclass model'
+} else if (model_tested == 'binaryModel' | model_tested == 'speedFilter'){
+  df$Operation = factor(df$Operation, levels=c('F','TC'))
+  df$Operation = revalue(df$Operation, c('F'='Fishing', 'TC'='Tracking-Cruising'))
+  colourPaletteC = c('Tracking-Cruising'='#C82937', 'Fishing'='#2ca02c')
+  figureHeight = 2000
+  if (model_tested == 'binaryModel'){title='Binary model'}
+  else if (model_tested == 'speedFilter'){title='Speed filter'}
+}
 
 #VMS observed Vs VMS predicted
 ggplot(df, aes(x=VMSOpTime.min._ObservedOp, y=VMSOpTime.min._PredictedOp, color=Operation))+
   geom_point()+
-  facet_grid(rows=vars(Operation), cols=vars(Grid), scales='free')+
+  #facet_grid(rows=vars(Operation), cols=vars(Grid), scales='free')+
+  facet_wrap(Grid~Operation, scales='free')+
   theme_bw()+
   geom_smooth(method='lm', se=TRUE)+
   geom_abline(slope=1, linetype='dashed')+
-  stat_cor(label.y = max_y-150, color='black')+ 
-  stat_regline_equation(label.y = max_y-250, color='black')+
+  #stat_cor(label.y = max_y-(max_y*0.25), color='black')+ 
+  stat_cor(label.x.npc = "left", label.y.npc = "top", color='black')+
+  #stat_regline_equation(label.y = max_y-(max_y*0.4), color='black')+
+  stat_regline_equation(label.y.npc = "middle", lanel.x.npc='left', color='black')+
   theme(legend.position = 'none')+
-  xlab('OBSERVED VMS operation time (min/km2)')+
-  ylab('PREDICTED VMS operation time (min/km2)')+
-  ggtitle(model_tested)
-ggsave(paste0('results/', model_tested,'/fishingEffortCheck/resultsVMSobsVMSpred_kmsq_corrplots.jpeg'), units='px', height = 2000, width = 4000)
+  scale_colour_manual(values = colourPaletteC)+
+  xlab('Observed VMS operation time (min/km2)')+
+  ylab('Predicted VMS operation time (min/km2)')+
+  ggtitle(title)
+ggsave(paste0('results/', model_tested,'/fishingEffortCheck/resultsVMSobsVMSpred_kmsq_corrplots.png'), 
+       units='px', 
+       height = 1500, width = 3000, dpi=300)
 
 
 #2. Fishing trip operation time. observed vs predicted
