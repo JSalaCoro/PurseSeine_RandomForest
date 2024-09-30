@@ -28,7 +28,7 @@ Vms2km$Grid = '2km2'
 Vms3km$Grid = '3km2'
 Vms4km$Grid = '4km2'
 Vms5km$Grid = '5km2'
-
+'holi'
 df = rbind(Vms1km, Vms2km, Vms3km, Vms4km, Vms5km)
 max_y=max(df$VMSOpTime.min._PredictedOp)
 df$Grid = as.factor(df$Grid)
