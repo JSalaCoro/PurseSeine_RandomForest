@@ -1,8 +1,9 @@
 library(ggplot2)
-4library(RPostgres)
+library(RPostgres)
 library(plyr)
 library(tidyr)
 library(dplyr)
+library(ggh4x)
 library(zoo)
 library(caret)
 library(ranger)
@@ -48,17 +49,19 @@ if (model_tested == 'multiclassModel' ){
 }
 
 #VMS observed Vs VMS predicted
+#for facet_wrap labelling: https://stackoverflow.com/questions/52706599/how-to-position-strip-labels-in-facet-wrap-like-in-facet-grid
 ggplot(df, aes(x=VMSOpTime.min._ObservedOp, y=VMSOpTime.min._PredictedOp, color=Operation))+
   geom_point()+
   #facet_grid(rows=vars(Operation), cols=vars(Grid), scales='free')+
-  facet_wrap(Grid~Operation, scales='free')+
+  facet_grid2(rows = vars(Operation), cols=vars(Grid), axes='all', scales='free', independent='all')+
+  #facet_wrap(Operation~Grid, scales='free', ncol=5, nrow=3)+
   theme_bw()+
   geom_smooth(method='lm', se=TRUE)+
   geom_abline(slope=1, linetype='dashed')+
   #stat_cor(label.y = max_y-(max_y*0.25), color='black')+ 
-  stat_cor(label.x.npc = "left", label.y.npc = "top", color='black')+
+  #stat_cor(label.x.npc = "left", label.y.npc = "top", color='black')+
   #stat_regline_equation(label.y = max_y-(max_y*0.4), color='black')+
-  stat_regline_equation(label.y.npc = "middle", lanel.x.npc='left', color='black')+
+  #stat_regline_equation(label.y.npc = "middle", lanel.x.npc='left', color='black')+
   theme(legend.position = 'none')+
   scale_colour_manual(values = colourPaletteC)+
   xlab('Observed VMS operation time (min/km2)')+
