@@ -10,7 +10,7 @@ library(ggpmisc)
 
 rm(list=ls())
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-model_tested='multiclassModel'
+model_tested='multiClassModel'
 model_tested='binaryModel'
 model_tested = 'speedFilter'
 
@@ -21,16 +21,16 @@ Vms3km = read.csv(paste0('results/', model_tested,'/fishingEffortCheck/3km_VMSob
 Vms4km = read.csv(paste0('results/', model_tested,'/fishingEffortCheck/4km_VMSobsVMSpred.csv'))
 Vms5km = read.csv(paste0('results/', model_tested,'/fishingEffortCheck/5km_VMSobsVMSpred.csv'))
 
-Vms1km$Grid = '1 km²'
-Vms2km$Grid = '2 km²'
-Vms3km$Grid = '3 km²'
-Vms4km$Grid = '4 km²'
-Vms5km$Grid = '5 km²'
+Vms1km$Grid = '1 kmï¿½'
+Vms2km$Grid = '2 kmï¿½'
+Vms3km$Grid = '3 kmï¿½'
+Vms4km$Grid = '4 kmï¿½'
+Vms5km$Grid = '5 kmï¿½'
 
 df = rbind(Vms1km, Vms2km, Vms3km, Vms4km, Vms5km)
 max_y=max(df$VMSOpTime.min._PredictedOp)
 df$Grid = as.factor(df$Grid)
-if (model_tested == 'multiclassModel' ){
+if (model_tested == 'multiClassModel' ){
   df$Operation = factor(df$Operation, levels=c('F','T','C'))
   df$Operation = revalue(df$Operation, c('F'='Fishing', 'T'='Tracking', 'C'='Cruising'))
   colourPaletteC = c('Cruising'='#2283C8', 'Tracking'='#ff7f0e', 'Fishing'='#2ca02c')
@@ -66,8 +66,8 @@ ggplot(df, aes(x=VMSOpTime.min._ObservedOp, y=VMSOpTime.min._PredictedOp, color=
         plot.title = element_text(size=14, face='bold'),
         )+
   scale_colour_manual(values = colourPaletteC)+
-  xlab('Observed VMS operation time (min/km²)')+
-  ylab('Predicted VMS operation time (min/km²)')+
+  xlab('Observed VMS operation time (min/kmï¿½)')+
+  ylab('Predicted VMS operation time (min/kmï¿½)')+
   ggtitle(title)
 
 ggsave(paste0('results/', model_tested,'/fishingEffortCheck/resultsVMSobsVMSpred_kmsq_corrplots.png'), 
@@ -99,7 +99,7 @@ dpredEx[is.na(dpredEx)] = 0
 
 dd = rbind(dobsEx, dpredEx)
 dd$ObsPred = as.factor(dd$ObsPred)
-if (model_tested == 'multiclassModel' ){
+if (model_tested == 'multiClassModel' ){
   dd$Operation = factor(dd$Operation, levels=c('F','T','C'))
   dd$Operation = revalue(dd$Operation, c('F'='Fishing', 'T'='Tracking', 'C'='Cruising'))
 } else if (model_tested == 'binaryModel' | model_tested == 'speedFilter'){
