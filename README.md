@@ -23,3 +23,8 @@ Shap values for both models are analysed. Two type of plots are made for each tr
 
 ## 3_fishingEffortCheck
 Trained models are used to calculate predicted fishing effort estimates (fishing time per operation) by spatial grid cells (from 1 to 5 km^2). With '31_fishingEffortCheck_plots.R'  some nice plots can be made to compare predicted Vs observed fishing effort estimates.
+
+##Published version: 
+
+[![DOI](https://zenodo.org/badge/813108322.svg)](https://doi.org/10.5281/zenodo.18466425)
+
